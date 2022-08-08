@@ -1,0 +1,29 @@
+--Create the store database
+CREATE TABLE PARTYSTUFF (id INTEGER PRIMARY KEY, item TEXT, price REAL, quantityinstock INTEGER, aisle INTEGER, supplier TEXT, expirationdate REAL);
+INSERT INTO PARTYSTUFF VALUES (1, "red ballon", 3, 5, 2, "X", 365);
+INSERT INTO PARTYSTUFF VALUES (2, "carrot cake", 25, 2, 1, "Y", 5);
+INSERT INTO PARTYSTUFF VALUES (3, "chocolate cake", 28, 2, 1, "Y", 5);
+INSERT INTO PARTYSTUFF VALUES (4, "banana bread with sprinkles", 15, 8, 1, "Y", 3);
+INSERT INTO PARTYSTUFF VALUES (5, "millionaire shortbread", 18, 6, 1, "Y", 3);
+INSERT INTO PARTYSTUFF VALUES (6, "chocolate cookies", 2 , 25, 1, "Y", 3);
+INSERT INTO PARTYSTUFF VALUES (7, "blue ballon", 3, 9, 2, "X", 365);
+INSERT INTO PARTYSTUFF VALUES (8, "yellow ballon", 3, 4, 2, "X", 365);
+INSERT INTO PARTYSTUFF VALUES (9, "pink ballon", 3, 6, 2, "X", 365);
+INSERT INTO PARTYSTUFF VALUES (10, "hearts ballon", 5, 15, 2, "X", 365);
+INSERT INTO PARTYSTUFF VALUES (11, "sugar cane small plates", 20, 8, 3, "Entelequia", 100);
+INSERT INTO PARTYSTUFF VALUES (12, "sugar cane medium plates", 16, 10, 3, "Entelequia", 100);
+INSERT INTO PARTYSTUFF VALUES (13, "sugar cane small bowl", 16, 15, 3, "Entelequia", 100);
+INSERT INTO PARTYSTUFF VALUES (14, "PLA glass", 25, 32, 3, "X", 100);
+INSERT INTO PARTYSTUFF VALUES (15, "paper cups", 16, 25, 3, "Y", 100);
+
+SELECT * FROM PARTYSTUFF;
+
+
+--display quantity of items on each aisle
+SELECT aisle, SUM(quantityinstock) FROM PARTYSTUFF GROUP BY aisle;
+-- display the SUM of the prices of the articles of each supplier
+SELECT supplier, SUM(price) FROM PARTYSTUFF GROUP BY supplier;
+-- display all the items with all their info if they are located in aisles 2 and on
+SELECT * FROM PARTYSTUFF WHERE aisle >=2 ORDER BY aisle;
+-- display all the items with all their info if their expiration date is in less than 5 days, management will pay special atention to these items
+SELECT * FROM PARTYSTUFF WHERE expirationdate <=15
