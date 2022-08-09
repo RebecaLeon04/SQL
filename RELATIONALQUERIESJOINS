@@ -1,0 +1,76 @@
+-- two famous people tables are created and then relational queries are used to analyze data
+
+CREATE TABLE persons (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    fullname TEXT,
+    occ TEXT);
+    
+INSERT INTO persons (fullname, occ) VALUES ("Lady Gaga", "composer and singer");
+INSERT INTO persons (fullname, occ) VALUES ("Eiza Gonzalez", "actress");
+INSERT INTO persons (fullname, occ) VALUES ("Lindsay Lohan", "actress");
+INSERT INTO persons (fullname, occ) VALUES ("Madonna", "composer and singer");
+INSERT INTO persons (fullname, occ) VALUES ("Checo Perez", "F1 pilot");
+INSERT INTO persons (fullname, occ) VALUES ("Shakira", "composer and singer");
+INSERT INTO persons (fullname, occ) VALUES ("Barak Obama", "former President");
+INSERT INTO persons (fullname, occ) VALUES ("Ben Affleck", "actor");
+INSERT INTO persons (fullname, occ) VALUES ("Jennifer Lopez", "actress and singer");
+INSERT INTO persons (fullname, occ) VALUES ("Marcelo Ebrard", "politician");
+INSERT INTO persons (fullname, occ) VALUES ("Kamala Harris", "Vicepresident");
+INSERT INTO persons (fullname, occ) VALUES ("Gabriel Garcia Marquez", "Writter");
+INSERT INTO persons (fullname, occ) VALUES ("Harry Styles", "Mylove");
+INSERT INTO persons (fullname, occ) VALUES ("Serena Williams", "Tennis Player");
+INSERT INTO persons (fullname, occ) VALUES ("Federer", "Tennis Player");
+
+    CREATE TABLE nationality (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    personid INTEGER,
+    nat TEXT);
+    
+INSERT INTO nationality (personid, nat) VALUES (1, "american");
+INSERT INTO nationality (personid, nat) VALUES (2, "mexican");
+INSERT INTO nationality (personid, nat) VALUES (3, "american");
+INSERT INTO nationality (personid, nat) VALUES (5, "mexican");
+INSERT INTO nationality (personid, nat) VALUES (6, "colombian");
+INSERT INTO nationality (personid, nat) VALUES (7, "american");
+INSERT INTO nationality (personid, nat) VALUES (8, "american");
+INSERT INTO nationality (personid, nat) VALUES (9, "american");
+INSERT INTO nationality (personid, nat) VALUES (10, "mexican");
+INSERT INTO nationality (personid, nat) VALUES (11, "american");
+INSERT INTO nationality (personid, nat) VALUES (12, "colombian");
+INSERT INTO nationality (personid, nat) VALUES (13, "brit");
+INSERT INTO nationality (personid, nat) VALUES (14, "american");
+INSERT INTO nationality (personid, nat) VALUES (15, "swiss");
+
+CREATE table friends (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    person1_id INTEGER,
+    person2_id INTEGER,
+    person3_id INTEGER);
+
+INSERT INTO friends (person1_id, person2_id, person3_id)
+    VALUES (1,4,5);
+INSERT INTO friends (person1_id, person2_id)
+    VALUES (2,5);
+    INSERT INTO friends (person1_id, person2_id, person3_id)
+    VALUES (14,15,6);
+    INSERT INTO friends (person1_id, person2_id)
+    VALUES (7,11);
+    
+    -- I want to know fullname, occupation and nationality. Occupation-name and id are in different data sets and were joined by id. Only one table has names.
+    
+    SELECT persons.id, persons.fullname, persons.occ, nationality.nat FROM persons
+    JOIN nationality 
+    ON persons.id = nationality.personid
+    ORDER BY persons.id;
+    
+    
+    --This is an example of multiple joins. I want a simple table that shows friends groups incluiding the groups that have 2 or 3 people (that is why the left join). 
+    -- Since only the persons TABLE has names, I had to play with the friends TABLE and persons TABLE giving it different letters (a, b, c) for each friends column.
+    
+    SELECT a.fullname as FRIEND1, b.fullname as FRIEND2, c.fullname as FRIEND3 FROM friends
+    LEFT OUTER JOIN persons a
+    ON friends.person1_id = a. id
+    LEFT OUTER JOIN persons b
+    ON friends.person2_id = b. id
+    LEFT OUTER JOIN persons c
+    ON friends.person3_id = c. id;
