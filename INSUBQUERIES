@@ -1,4 +1,4 @@
--- IN SUBQUERIES can aggregate data from two different tables. It is very important to have a common column, in this example name and artist both are text. 
+-- IN SUBQUERIES can aggregate data from two different tables. It is very important to have a common column, in this example name and artist  
 
 CREATE TABLE artists (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
