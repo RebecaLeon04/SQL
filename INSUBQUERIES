@@ -60,4 +60,5 @@ INSERT INTO songs (artist, title)
     VALUES ("Guns N' Roses", "Don't cry");
     
 -- I used SQL to aggregate data using an IN SUBQUERY to RETRIEVE TITLES from table SONGS only from POP genre that was declared in another table called ARTISTS. I was able to do that because both tables have something in common: the artists
+-- IMPORTANT This can be easily done with Rational Queries or JOINS
 SELECT title from  songs where artist IN (SELECT name from artists where genre= "Pop")
