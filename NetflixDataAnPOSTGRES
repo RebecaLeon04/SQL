@@ -1,0 +1,34 @@
+-- Example query (PostgreSQL)
+SELECT PEO.show_id, TIT.title, TIT.rating, TIT.description 
+FROM "CharlotteChaze/BreakIntoTech"."netflix_people" PEO 
+LEFT JOIN  "CharlotteChaze/BreakIntoTech"."netflix_titles_info" TIT
+ON PEO.show_id=  TIT.show_id;
+
+
+-- How many movie titles are there in the database? (movies only, not tv shows)
+SELECT COUNT ("CharlotteChaze/BreakIntoTech"."netflix_titles_info".type) 
+FROM   "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+WHERE   type = 'Movie';
+
+--When was the most recent batch of tv shows and/or movies added to the database?
+SELECT  MAX ("CharlotteChaze/BreakIntoTech"."netflix_titles_info".date_added)
+FROM   "CharlotteChaze/BreakIntoTech"."netflix_titles_info";
+
+--List all the movies and tv shows in alphabetical order.
+SELECT "CharlotteChaze/BreakIntoTech"."netflix_titles_info".title
+FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+ORDER BY "CharlotteChaze/BreakIntoTech"."netflix_titles_info".title  ASC;
+
+--Who was the Director for the movie Bright Star?
+SELECT PEO.director
+FROM "CharlotteChaze/BreakIntoTech"."netflix_people" PEO
+LEFT JOIN "CharlotteChaze/BreakIntoTech"."netflix_titles_info" TIT
+ON PEO.show_id=TIT.show_id
+WHERE TIT.title='Bright Star';
+
+--What is the oldest movie in the database and what year was it made?
+select TIT.title, TIT.release_year
+FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info" TIT
+WHERE type='Movie'
+ORDER BY TIT.release_year asc
+LIMIT 2;
