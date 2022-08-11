@@ -1,0 +1,54 @@
+SELECT * FROM BIT_DB.Spotifydata
+LIMIT 10;
+
+SELECT BIT_DB.Spotifydata.popularity, ((duration_ms/1000)/60) as DURATIONINMIN,
+    CASE
+    When BIT_DB.Spotifydata.popularity>95 THEN 'MAX POPULAR'
+    When BIT_DB.Spotifydata.popularity>90 THEN 'REAL POPULAR'
+    When BIT_DB.Spotifydata.popularity>85 THEN 'VERY POPULAR'
+    ELSE 'POPULAR'
+    END AS 'POPULARITY SCORE'
+
+FROM BIT_DB.Spotifydata
+
+ORDER BY BIT_DB.Spotifydata.popularity;
+
+SELECT COUNT(*),
+    CASE
+    When BIT_DB.Spotifydata.popularity>95 THEN 'MAXPOPULAR'
+    When BIT_DB.Spotifydata.popularity>90 THEN 'REALPOPULAR'
+    When BIT_DB.Spotifydata.popularity>85 THEN 'VERYPOPULAR'
+    ELSE 'POPULAR'
+    END AS 'POPULARITYSCORE'
+
+FROM BIT_DB.Spotifydata
+GROUP BY POPULARITYSCORE ORDER BY POPULARITYSCORE DESC ;
+
+
+SELECT * FROM BIT_DB.Spotifydata WHERE artist_name IN ("Bad Bunny", "Dua Lipa", "Olivia Rodrigo", "Doja Cat");
+
+--SELECT COUNT (*), HAVING VS WHERE 
+
+SELECT COUNT(*), artist_name FROM BIT_DB.Spotifydata GROUP BY artist_name HAVING COUNT(*) >= 2;
+SELECT artist_name FROM BIT_DB.Spotifydata GROUP BY artist_name HAVING COUNT(*) >= 4;
+
+--WITH THIS DATA WE CAN DO FURTHER STATISTICS RELATING DANCE LEVEL AND ENERGY LEVEL POR EXAMPLE
+SELECT track_name, danceability,
+    CASE
+    When danceability>0.8 THEN 'MEGA DANCE'
+    When danceability>0.7 THEN 'REAL DANCE'
+    When danceability>0.6 THEN 'VERY DANCY'
+    ELSE 'NOT THAT DANCY'
+    END AS 'DANCELEVEL',
+    energy,
+      CASE
+    When energy>0.8 THEN 'MEGA EN'
+    When danceability>0.7 THEN 'REAL EN'
+    When danceability>0.6 THEN 'VERY EN'
+    ELSE 'NOT THAT ENERGETIC'
+    END AS 'ENLEVEL'
+    
+FROM BIT_DB.Spotifydata ORDER BY danceability DESC;
+
+
+
